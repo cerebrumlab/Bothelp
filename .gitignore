@@ -1,0 +1,4 @@
+/app/vendor/
+/app/var/
+.idea
+.Ds_Store

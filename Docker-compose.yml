@@ -1,0 +1,30 @@
+services:
+    nginx:
+        build: docker/nginx
+        restart: always
+        container_name: nginx
+        ports:
+            - 8080:80
+        volumes:
+            - ./app:/var/www/bothelp
+        depends_on:
+            - php
+        links:
+            - php
+    php:
+        restart: always
+        build: docker/php
+        container_name: php
+        volumes:
+            - ./app:/var/www/bothelp
+        ports:
+            - "9000:9000"
+    rabbitmq:
+        build: docker/rabbitmq
+        container_name: rabbitmq
+        environment:
+            - RABBITMQ_DEFAULT_USER=root
+            - RABBITMQ_DEFAULT_PASS=passwd
+        ports:
+            - "5672:5672"
+            - "15672:15672"
